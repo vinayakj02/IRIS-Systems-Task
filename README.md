@@ -16,6 +16,8 @@ services:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_USERNAME: root
             MYSQL_PASSWORD: root
+        volumes:
+            - my-datavolume:/var/lib/mysql
         expose:
             - "3306"
         restart: always
@@ -39,6 +41,8 @@ services:
             - ".:/app"
             - "./config/database.yml:/app/config/database.yml"
         restart: always
+volumes:
+    my-datavolume:
  ````
 <br>
 
