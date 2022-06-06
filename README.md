@@ -1,14 +1,30 @@
 # IRIS-Systems-Task
 
 ### Final running website
-![image](https://user-images.githubusercontent.com/74676945/172137646-23b22dc4-a0e0-4dd8-a86e-ce024079ee66.png) <br><br>
+![image](https://user-images.githubusercontent.com/74676945/172231175-e3f9b309-ebd3-4211-8e62-2ccd04329af2.png)
+ <br><br>
+![image](https://user-images.githubusercontent.com/74676945/172231909-0357e45f-cebd-43df-94cb-1ada7d55b47c.png)
+ <br><br>
 
 
 
 ## Using Docker Compose 
+- Tested with sudo docker-compose up
 ```
 version: "3.8"
 services:
+    nginx:
+        image: nginx:1.17.10
+        container_name: reverse_proxy
+        depends_on:
+            - db
+            - website
+        links:
+            - website
+        volumes:
+            - ./reverse_proxy/nginx.conf:/etc/nginx/nginx.conf
+        ports:
+            - "8080:8080"
     db:
         image: "mysql:latest"
         command: mysqld --default-authentication-plugin=mysql_native_password
@@ -30,7 +46,7 @@ services:
             - "db"
         build: .
         ports:
-            - "8080:3000"
+            - "3000"
         environment:
             DB_USERNAME: root
             DB_PASSWORD: root
@@ -46,14 +62,34 @@ volumes:
  ````
 <br>
 
-- Added [entrypoint.sh](https://github.com/vinayakj02/IRIS-Systems-Task/blob/task-2/Shopping-App-IRIS/entrypoint.sh) , [wait-for-services.sh](https://github.com/vinayakj02/IRIS-Systems-Task/blob/task-2/Shopping-App-IRIS/config/docker/wait-for-services.sh) , [prepare-db.sh](https://github.com/vinayakj02/IRIS-Systems-Task/blob/task-2/Shopping-App-IRIS/config/docker/prepare-db.sh) , [asset-pre-compile.sh](https://github.com/vinayakj02/IRIS-Systems-Task/blob/task-2/Shopping-App-IRIS/config/docker/asset-pre-compile.sh) and modified [database.yml](https://github.com/vinayakj02/IRIS-Systems-Task/blob/task-2/Shopping-App-IRIS/config/database.yml)
-- Tested using  ``sudo docker-compose up`` <br>
+- nginx.conf 
+```
+user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
+include /etc/nginx/modules-enabled/*.conf;
 
-![image](https://user-images.githubusercontent.com/74676945/172136758-01ef3f07-31d1-480e-ac3d-d06ceae16317.png)<br><br>
-![image](https://user-images.githubusercontent.com/74676945/172136823-103c7386-df68-454f-b89a-c4ed4696c4c8.png)
+events {
+    worker_connections 1024;
+}
 
+http {
+         server {
+            listen 8080;
+            server_name localhost 127.0.0.1;
+            location / {
+                proxy_pass  http://website:3000;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header Host $http_host;
+                proxy_set_header X-NginX-Proxy true;
+            }
+        }
+}
+```
 
-
-![image](https://user-images.githubusercontent.com/74676945/172137133-0908e573-98d2-4fc0-a06a-676d65d4d53f.png)
+![image](https://user-images.githubusercontent.com/74676945/172231314-47bfadfe-6672-489b-a6a7-40c8ac848151.png)  <br><br>
+![image](https://user-images.githubusercontent.com/74676945/172231525-975b4efc-afed-4edd-8773-b0ba945ef6ff.png)  <br><br>
+![image](https://user-images.githubusercontent.com/74676945/172231713-ff45e1e2-b8bd-4ad4-8406-23e6f9e9d61f.png)  <br><br>
 
 
