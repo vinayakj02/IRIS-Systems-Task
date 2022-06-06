@@ -1,0 +1,32 @@
+version: "3.8"
+services:
+    db:
+        image: "mysql:latest"
+        command: mysqld --default-authentication-plugin=mysql_native_password
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_USERNAME: root
+            MYSQL_PASSWORD: root
+        expose:
+            - "3306"
+        restart: always
+    website:
+        command: bash -c "bundle exec rails s -p 3000 -b '0.0.0.0'"
+        container_name: "web"
+        depends_on:
+            - "db"
+        links:
+            - "db"
+        build: .
+        ports:
+            - "8080:3000"
+        environment:
+            DB_USERNAME: root
+            DB_PASSWORD: root
+            DB_DATABASE: shop1_production
+            DB_PORT: 3306
+            DB_HOST: db
+        volumes:
+            - ".:/app"
+            - "./config/database.yml:/app/config/database.yml"
+        restart: always
