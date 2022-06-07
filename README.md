@@ -1,11 +1,11 @@
 # IRIS-Systems-Task
 
 ### Final running website
-![image](https://user-images.githubusercontent.com/74676945/172231175-e3f9b309-ebd3-4211-8e62-2ccd04329af2.png)
- <br><br>
-![image](https://user-images.githubusercontent.com/74676945/172231909-0357e45f-cebd-43df-94cb-1ada7d55b47c.png)
+![image](https://user-images.githubusercontent.com/74676945/172380199-46429e7c-be63-4e98-a490-8af287eaba30.png)
  <br><br>
 
+![image](https://user-images.githubusercontent.com/74676945/172380431-2c12b7d9-15fe-4b8a-83fd-0cff11ca3abc.png)
+<br> <br>
 
 
 ## Using Docker Compose 
@@ -25,6 +25,7 @@ services:
             - ./reverse_proxy/nginx.conf:/etc/nginx/nginx.conf
         ports:
             - "8080:8080"
+        restart: always
     db:
         image: "mysql:latest"
         command: mysqld --default-authentication-plugin=mysql_native_password
@@ -45,7 +46,7 @@ services:
         links:
             - "db"
         build: .
-        ports:
+        expose:
             - "3000"
         environment:
             DB_USERNAME: root
@@ -87,9 +88,8 @@ http {
         }
 }
 ```
-
-![image](https://user-images.githubusercontent.com/74676945/172231314-47bfadfe-6672-489b-a6a7-40c8ac848151.png)  <br><br>
-![image](https://user-images.githubusercontent.com/74676945/172231525-975b4efc-afed-4edd-8773-b0ba945ef6ff.png)  <br><br>
-![image](https://user-images.githubusercontent.com/74676945/172231713-ff45e1e2-b8bd-4ad4-8406-23e6f9e9d61f.png)  <br><br>
+![image](https://user-images.githubusercontent.com/74676945/172379534-c312abc1-1bb9-4790-8f53-a888f010514c.png)  <br><br>
+![image](https://user-images.githubusercontent.com/74676945/172379746-08ae0e95-846f-4034-9122-6c492edcf60f.png) <br> <br>
+![image](https://user-images.githubusercontent.com/74676945/172379286-3a5261a4-5955-4c18-af02-2850df54bd83.png)  <br><br>
 
 
