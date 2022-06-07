@@ -2,12 +2,15 @@ version: "3.8"
 services:
     nginx:
         image: nginx:1.17.10
-        container_name: reverse_proxy
         depends_on:
             - db
-            - website
+            - website1
+            - website2
+            - website3
         links:
-            - website
+            - website1
+            - website2
+            - website3
         volumes:
             - ./reverse_proxy/nginx.conf:/etc/nginx/nginx.conf
         ports:
@@ -25,11 +28,54 @@ services:
         expose:
             - "3306"
         restart: always
-    website:
-        command: bash -c "bundle exec rails s -p 3000 -b '0.0.0.0'"
-        container_name: "web"
+    website1:
+        # command: bash -c "bundle exec rails s -p 3000 -b '0.0.0.0'"
+        command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
         depends_on:
             - "db"
+        links:
+            - "db"
+        build: .
+        expose:
+            - "3000"
+        environment:
+            DB_USERNAME: root
+            DB_PASSWORD: root
+            DB_DATABASE: shop1_production
+            DB_PORT: 3306
+            DB_HOST: db
+        volumes:
+            - ".:/app"
+            - "./config/database.yml:/app/config/database.yml"
+        restart: always
+    website2:
+        # command: bash -c "bundle exec rails s -p 3000 -b '0.0.0.0'"
+        command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+        depends_on:
+            - "db"
+            - "website1"
+        links:
+            - "db"
+        build: .
+        expose:
+            - "3000"
+        environment:
+            DB_USERNAME: root
+            DB_PASSWORD: root
+            DB_DATABASE: shop1_production
+            DB_PORT: 3306
+            DB_HOST: db
+        volumes:
+            - ".:/app"
+            - "./config/database.yml:/app/config/database.yml"
+        restart: always
+    website3:
+        # command: bash -c "bundle exec rails s -p 3000 -b '0.0.0.0'"
+        command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+        depends_on:
+            - "db"
+            - "website1"
+            - "website2"
         links:
             - "db"
         build: .
