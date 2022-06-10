@@ -3,9 +3,27 @@
 ## Final Running site 
 ![image](https://user-images.githubusercontent.com/74676945/173151466-7693fef2-c068-4871-9e59-8e143d4c6a92.png)
 ![image](https://user-images.githubusercontent.com/74676945/173151542-b75b6af9-94e7-42fb-9fb9-3609256a69b9.png)
-![image](https://user-images.githubusercontent.com/74676945/173151944-c003f69d-1c82-41e4-829c-0d27b81f9b89.png)
 
-(made backup every minute for testing)
+
+
+## Tasks 
+| Task | Branch | Description |   
+| ------------- | ------------- | ------------ |
+| 1 | [Branch 1](https://github.com/vinayakj02/IRIS-Systems-Task/tree/task-1)  |  Dockerized the app with one image/container  | 
+| 2 | [Branch 2](https://github.com/vinayakj02/IRIS-Systems-Task/tree/task-2) | Used Docker compose to launch seperate container for db without exposing db port outside docker network |
+| 3 | [Branch 3](https://github.com/vinayakj02/IRIS-Systems-Task/tree/task-3) | Nginx as reverse proxy | 
+| 4 | [Branch 4-5-6](https://github.com/vinayakj02/IRIS-Systems-Task/tree/task-4-5-6) | Scaled to 3 web containers and load balance requests |
+| 5 | [Branch 4-5-6](https://github.com/vinayakj02/IRIS-Systems-Task/tree/task-4-5-6) | Persistence using Volumes |  
+| 6 | [Branch 4-5-6](https://github.com/vinayakj02/IRIS-Systems-Task/tree/task-4-5-6) | Docker compose | 
+| 7 | [Branch 7](https://github.com/vinayakj02/IRIS-Systems-Task/tree/task-7) |  Added requests rate limit  | 
+| 8 | This branch | Made another container to create cron job to create database backups everyday | 
+
+
+
+
+<br>
+
+## Docker compose file for task 8
 
 ```
 version: "3.8"
@@ -123,16 +141,11 @@ services:
 volumes:
     my-datavolume:
 ```
-Each task is on a different branch
+- Available backups
+    ![image](https://user-images.githubusercontent.com/74676945/173151944-c003f69d-1c82-41e4-829c-0d27b81f9b89.png)
+
+(made backup every minute for testing)
+
+- used mysql-cron-backup image from [fradelg](https://github.com/fradelg/docker-mysql-cron-backup) 
 
 
-| Task | Branch |
-| ------------- | ------------- |
-| 1 | [Branch 1](https://github.com/vinayakj02/IRIS-Systems-Task/tree/task-1)  |
-| 2 | [Branch 2](https://github.com/vinayakj02/IRIS-Systems-Task/tree/task-2) |
-| 3 | [Branch 3](https://github.com/vinayakj02/IRIS-Systems-Task/tree/task-3) |
-| 4 | [Branch 4-5-6](https://github.com/vinayakj02/IRIS-Systems-Task/tree/task-4-5-6) | 
-| 5 | [Branch 4-5-6](https://github.com/vinayakj02/IRIS-Systems-Task/tree/task-4-5-6) | 
-| 6 | [Branch 4-5-6](https://github.com/vinayakj02/IRIS-Systems-Task/tree/task-4-5-6) | 
-| 7 | [Branch 7](https://github.com/vinayakj02/IRIS-Systems-Task/tree/task-7) | 
-| 8 | This branch | 
