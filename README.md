@@ -12,7 +12,7 @@
 | 1 | [Branch 1](https://github.com/vinayakj02/IRIS-Systems-Task/tree/task-1)  |  Dockerized the app with one image/container  | 
 | 2 | [Branch 2](https://github.com/vinayakj02/IRIS-Systems-Task/tree/task-2) | Used Docker compose to launch seperate container for db without exposing db port outside docker network |
 | 3 | [Branch 3](https://github.com/vinayakj02/IRIS-Systems-Task/tree/task-3) | Nginx as reverse proxy | 
-| 4 | [Branch 4-5-6](https://github.com/vinayakj02/IRIS-Systems-Task/tree/task-4-5-6) | Scaled to 3 web containers and load balance requests |
+| 4 | [Branch 4-5-6](https://github.com/vinayakj02/IRIS-Systems-Task/tree/task-4-5-6) | Scaled to 3 web containers and load balanced requests |
 | 5 | [Branch 4-5-6](https://github.com/vinayakj02/IRIS-Systems-Task/tree/task-4-5-6) | Persistence using Volumes |  
 | 6 | [Branch 4-5-6](https://github.com/vinayakj02/IRIS-Systems-Task/tree/task-4-5-6) | Docker compose | 
 | 7 | [Branch 7](https://github.com/vinayakj02/IRIS-Systems-Task/tree/task-7) |  Added requests rate limit  | 
